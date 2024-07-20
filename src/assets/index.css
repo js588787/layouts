@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    font-family: 'Roboto', sans-serif;
+    color: #212529;
+  }
+
+.col-container{
+  @apply flex flex-col;
+}
+
+.row-container{
+  @apply flex flex-row;
+}
+
+.shadow-block{
+  @apply shadow-[0_0px_15px_-0px_rgba(0,0,0,0.06)];
+}
+
+.subheader{
+  @apply text-[20px] leading-[25px];
+}
