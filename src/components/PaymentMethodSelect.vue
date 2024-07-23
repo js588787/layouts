@@ -4,93 +4,56 @@
             <span class="subheader">Выберите способ оплаты</span>
         </div>
 
-        <div class="row-container flex-wrap h-[214px] overflow-y-scroll">
-            <PaymentMethodItem v-for="item in items" :key="item.name" v-bind="item"/>
+        <div class="row-container flex-wrap h-[214px] gap-[16px] p-[10px] -mr-[16px] overflow-y-scroll custom-scroll">
+            <PaymentMethodItem
+                v-for="item in methods"
+                :key="item.code"
+                :item="item"
+                :selected="method.code === item.code"
+                @click="onSelectMethod(method)"
+            />
+        </div>
+
+        <div class="col-container gap-[10px]">
+            <div class="row-container items-center gap-[10px] cursor-pointer" @click="onToggleDescription">
+                <Image fileName="attension"/>
+                <span class="text-[14px]">Внимание, при нажатии раскрывается информация про страны</span>
+                <Image fileName="arrow-m"/>
+            </div>
+
+            <div class="row-container" v-if="isDescriptionVisible">
+                <span class="text-[14px] font-normal">{{ method.description }}</span>
+            </div>
         </div>
     </div>
 </template>
   
 <script setup lang="ts">
+import { ref } from 'vue';
+import { PaymentMethod } from '../types/PaymentMethod';
 import PaymentMethodItem from './PaymentMethodItem.vue';
+import Image from './Image.vue';
 
-//const method = defineModel();
+const props = defineProps<{
+    methods: PaymentMethod[];
+    modelValue: PaymentMethod;
+}>();
 
-const items = [{
-        logoName: 'visa-mastercard',
-        name: 'Картой РФ',
-        comission: 8,
-    },
-    {
-        logoName: 'mir',
-        name: 'Картой МИР',
-        comission: 8,
-    },
-    {
-        logoName: 'sbp',
-        name: 'СБП',
-        comission: 8,
-    },
-    {
-        logoName: 'payeer',
-        name: 'Payeer',
-        comission: 8,
-    },
-    {
-        logoName: 'steampay',
-        name: 'SteamPay',
-        comission: 8,
-    },
-    {
-        logoName: 'megafon',
-        name: 'Мегафон',
-        comission: 8,
-    },
-    {
-        logoName: 'beeline',
-        name: 'Билайн',
-        comission: 8,
-    },
-    {
-        logoName: 'tele2',
-        name: 'Теле2',
-        comission: 8,
-    },
-    {
-        logoName: 'paypal',
-        name: 'PayPal',
-        comission: 8,
-    },
-    {
-        logoName: 'stripe',
-        name: 'Stripe',
-        comission: 8,
-    },
-    {
-        logoName: 'fkwallet',
-        name: 'FKWallet',
-        comission: 8,
-    },
-    {
-        logoName: 'lava',
-        name: 'Lava',
-        comission: 8,
-    },
-    {
-        logoName: 'volet',
-        name: 'Volet',
-        comission: 8,
-    },
-    {
-        logoName: 'perfectmoney',
-        name: 'PerfectMoney',
-        comission: 8,
-    },
-    {
-        logoName: 'card',
-        name: 'Другой',
-        comission: 8,
-    },
-];
+const emit = defineEmits<{
+    'update:modelValue': [value?: PaymentMethod];
+}>();
+
+const method = ref<PaymentMethod>(props.modelValue);
+
+const onSelectMethod = (value: PaymentMethod) => {
+    emit('update:modelValue', value);
+};
+
+const isDescriptionVisible = ref<boolean>();
+
+const onToggleDescription = () => {
+    isDescriptionVisible.value = !isDescriptionVisible.value;
+};
 </script>
   
 <style scoped>

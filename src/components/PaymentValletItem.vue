@@ -1,22 +1,23 @@
 <template>
-    <div class="row-container payment-vallet-item shadow-block">
-      <Image :fileName="logoName"/>
-      <span class="text-[14px]">{{ name }}</span>
-    </div>
+    <SelectItemBlock class="w-[111px] justify-center" :isSelected="isSelected">
+        <div class="row-container gap-[10px] items-center">
+            <Image :fileName="valletName.toLowerCase()"/>
+            <span class="text-[16px]">{{ valletName }}</span>
+        </div>
+    </SelectItemBlock>
 </template>
   
 <script setup lang="ts">
 import { defineProps } from 'vue';
 import Image from './Image.vue';
+import SelectItemBlock from './SelectItemBlock.vue';
 
 defineProps<{
-    logoName: String;
-    name: String;
+    valletName: string;
+    isSelected: boolean;
 }>();
 </script>
   
 <style scoped>
-.payment-vallet-item {
-    @apply items-center gap-[10px] h-[68px] w-[179px] rounded-[12px] py-[15px] pl-[20px] pr-[24px];
-}
+
 </style>

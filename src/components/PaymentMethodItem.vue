@@ -1,21 +1,26 @@
 <template>
-    <div class="row-container payment-method-item w-custom shadow-block">
-        <Image :fileName="logoName"/>
+    <SelectItemBlock class="w-payment-method justify-center" :isSelected="isSelected">
+        <Image :fileName="item.code"/>
         <div class="col-container gap-[3px]">
-            <span class="text-[16px] leading-[16px]">{{ name }}</span>
-            <p class="text-[13px] leading-[16px]"><span class="opacity-60">Комиссия: </span><span>{{ comission }}%</span></p>
+            <span class="text-[16px] leading-[16px]">{{ item.title }}</span>
+            <p class="text-[13px] leading-[16px]">
+                <span class="opacity-60">
+                    Комиссия: </span><span>{{ item.commission }}
+                </span>
+            </p>
         </div>
-    </div>
+    </SelectItemBlock>
 </template>
   
 <script setup lang="ts">
 import { defineProps } from 'vue';
+import { PaymentMethod } from '../types/PaymentMethod';
 import Image from './Image.vue';
+import SelectItemBlock from './SelectItemBlock.vue';
 
 defineProps<{
-    logoName: String;
-    name: String;
-    comission: Number;
+    item: PaymentMethod;
+    isSelected: boolean;
 }>();
 </script>
   

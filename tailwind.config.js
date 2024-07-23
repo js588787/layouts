@@ -8,7 +8,8 @@ export default {
   theme: {
     extend: {
       width: {
-        'custom': 'calc(20% - 16px)',
+        'payment-vallet': 'calc(11.1% - 16px)',
+        'payment-method': 'calc(20% - 16px)',
       },
     },
   },
