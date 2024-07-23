@@ -3,8 +3,28 @@
 @tailwind utilities;
 
 @layer utilities {
-  .icon-hover:hover {
-    fill: blue;
+  #app {
+    @apply flex flex-col items-center;
+  }
+
+  .col-container {
+    @apply flex flex-col;
+  }
+  
+  .row-container {
+    @apply flex flex-row;
+  }
+  
+  .gradientborder {
+    background: linear-gradient(white, white) padding-box, linear-gradient(to left, #E2C299, #C5A67C) border-box;
+  }
+  
+  .gradientborder.selected {
+    @apply border-[2px] border-solid border-transparent;
+  }
+
+  .chevron.opened {
+      @apply rotate-180;
   }
 }
 
@@ -14,24 +34,8 @@ body {
     font-weight: 500;
   }
 
-.col-container{
-  @apply flex flex-col;
-}
-
-.row-container{
-  @apply flex flex-row;
-}
-
 .subheader{
   @apply text-[20px] leading-[25px];
-}
-
-.gradientborder {
-  background: linear-gradient(white, white) padding-box, linear-gradient(to left, #E2C299, #C5A67C) border-box;
-}
-
-.gradientborder.selected {
-  @apply border-[2px] border-solid border-transparent;
 }
 
 .custom-scroll::-webkit-scrollbar {

@@ -1,9 +1,11 @@
 <template>
-    <SelectItemBlock class="w-payment-method justify-center" :isSelected="isSelected">
+    <SelectItemBlock class="payment-method-item md:w-payment-method-l w-payment-method-m md:px-[20px] md:py-[14px] md:gap-[12px] border-[2px] border-white px-[12px] py-[10px] gap-[6px]" :isSelected="isSelected">
         <Image :fileName="item.code"/>
+
         <div class="col-container gap-[3px]">
-            <span class="text-[16px] leading-[16px]">{{ item.title }}</span>
-            <p class="text-[13px] leading-[16px]">
+            <span class="md:text-[16px] text-[13px] md:leading-[16px] leading-[15px]">{{ item.title }}</span>
+
+            <p class="md:text-[13px] text-[11px] leading-[16px]">
                 <span class="opacity-60">
                     Комиссия: </span><span>{{ item.commission }}
                 </span>
@@ -25,7 +27,5 @@ defineProps<{
 </script>
   
 <style scoped>
-.payment-method-item {
-    @apply items-center h-[68px] m-[8px] gap-[12px] rounded-[12px] py-[15px] pl-[20px] pr-[24px];
-}
+
 </style>

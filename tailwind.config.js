@@ -9,8 +9,12 @@ export default {
     extend: {
       width: {
         'payment-vallet': 'calc(11.1% - 16px)',
-        'payment-method': 'calc(20% - 16px)',
+        'payment-method-l': 'calc(20% - 16px)',
+	'payment-method-m': 'calc(20% - 8px)',
       },
+    },
+    screens: {
+      'md': '1080px',
     },
   },
   plugins: [],

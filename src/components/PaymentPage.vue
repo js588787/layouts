@@ -2,7 +2,7 @@
 import PaymentValletSelect from './PaymentValletSelect.vue';
 import PaymentMethodSelect from './PaymentMethodSelect.vue';
 import PaymentSumInput from './PaymentSumInput.vue';
-import { computed, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { PaymentInfo } from '../types/paymentInfo';
 import { RESPONSE_MOCK } from '../consts';
 import { PaymentMethod } from '../types/pamentMethod';
@@ -12,6 +12,7 @@ const paymentInfo = ref<PaymentInfo>();
 const paymentVallet = ref<string>("");
 const paymentMethod = ref<PaymentMethod>({} as PaymentMethod);
 const paymentSum = ref<number>(0);
+const errorMessage = ref<string>("");
 
 const loadPaymentInfo = async () => {
     const IS_MOCKED = true;
@@ -24,12 +25,10 @@ const loadPaymentInfo = async () => {
             method: "GET",
         });
 
-        paymentInfo.value = await resp.json();
+        paymentInfo.value = JSON.parse(await resp.json());
     }
 
     paymentVallet.value = paymentInfo.value!.default_currency;
-    paymentMethod.value = paymentInfo.value!.currencies[paymentVallet.value][0];
-    paymentSum.value = paymentMethod.value.min_amount;
 };
 
 const paymentVallets = computed(() => paymentInfo.value &&
@@ -38,23 +37,54 @@ const paymentVallets = computed(() => paymentInfo.value &&
 const paymentMethods = computed(() => paymentVallet.value &&
     paymentInfo.value?.currencies[paymentVallet.value]);
 
-const doPayment = () => {
-    console.log(doPayment);
-}
+const doPayment = async () => {
+    errorMessage.value = "";
+
+    try {
+        let params = new URLSearchParams();
+        params.append('currency', paymentVallet.value);
+        params.append('method', paymentMethod.value.code);
+        params.append('amount', paymentSum.value.toString());
+
+        const url = "https://testTask.com/api/ui/payments/invoice/create/"
+        const resp: Response = await fetch(url + params.toString(), {
+            method: "POST",
+        });
+
+        const result = JSON.parse(await resp.json());
+
+        if (!result.success) {
+            throw new Error(result.message);
+        }
+
+        window.location.href = result.data.url;
+    }
+    catch (e) {
+        errorMessage.value = e.toString();
+    }
+};
+
+watch(() => paymentVallet.value, (value: string) => {
+    paymentMethod.value = paymentInfo.value?.currencies[value]?.[0];
+    paymentSum.value = paymentMethod.value?.min_amount;
+}, { immediate: true });
 
 loadPaymentInfo();
 </script>
 
 <template>
-    <div class="col-container w-[1160px] gap-[30px] mx-auto py-[40px]">
+    <div class="wrapper col-container">
         <p class="text-[36px] leading-[42px]">
             <b>Пополните баланс, </b>
-            <span class="opacity-60">чтобы получить номер для приема смс</span>
+            <span class="text-secondary">чтобы получить номер для приема смс</span>
         </p>
+
+        <span v-if="errorMessage" class="text-[14px] text-[#E86068]">{{ errorMessage }}</span>
 
         <PaymentValletSelect
             :vallets="paymentVallets || []"
             v-model="paymentVallet"
+            :defaultValue="paymentInfo?.default_currency"
         />
 
         <PaymentMethodSelect
@@ -78,5 +108,7 @@ loadPaymentInfo();
 </template>
 
 <style scoped>
-
+.wrapper {
+    @apply w-full max-w-[1160px] gap-[30px] px-[10px] py-[40px];
+}
 </style>

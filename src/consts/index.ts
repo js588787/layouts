@@ -149,8 +149,3 @@ export const RESPONSE_MOCK = {
       }
     }
   };
-
-  export const CURRENCY_SYMBOLS = {
-    RUB: '₽',
-    UAH: 'грн.',
-  };
