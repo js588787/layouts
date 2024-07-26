@@ -4,7 +4,7 @@
             <span class="subheader">Выберите способ оплаты</span>
         </div>
 
-        <CustomScrollbar class="h-[209px] md:h-[214px] -mx-[15px] -mt-[15px] col-container">
+        <CustomScrollbar class="max-h-[209px] md:max-h-[214px] -mx-[15px] -mt-[15px] col-container">
             <div class="row-container flex-wrap gap-[8px] md:gap-[16px] -mr-[8px] md:-mr-[16px] px-[15px] py-[15px]">
                 <PaymentMethodItem
                     v-for="item in methods"

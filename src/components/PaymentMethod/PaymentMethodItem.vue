@@ -3,7 +3,7 @@
         <Image class="w-[36px] md:w-[48px]" :fileName="item.code"/>
 
         <div class="col-container gap-[2px] md:gap-[3px]">
-            <span class="text-[13px] leading-[15px] md:text-[16px] md:leading-[16px]">{{ item.title }}</span>
+            <span class="text-[13px] leading-[15px] md:text-[16px] md:leading-[16px] whitespace-nowrap">{{ item.title }}</span>
 
             <p class="text-[11px] leading-[13px] md:text-[13px] md:leading-[15px]">
                 <span class="font-normal opacity-60">
