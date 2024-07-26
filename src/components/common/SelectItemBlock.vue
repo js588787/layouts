@@ -12,7 +12,7 @@ defineProps<{
   
 <style scoped>
 .select-block {
-    @apply items-center relative md:h-[68px] h-[51px] rounded-[12px] cursor-pointer;
+    @apply items-center relative rounded-[10px] md:rounded-[12px] cursor-pointer;
     @apply shadow-[0_0px_15px_-0px_rgba(0,0,0,0.06)];
 }
 </style>

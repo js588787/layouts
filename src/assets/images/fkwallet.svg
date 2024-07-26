@@ -1,11 +1,10 @@
-<svg width="36" height="33" viewBox="0 0 36 33" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g clip-path="url(#clip0_2311_25261)">
-<path d="M19.4101 20.543V32.714H14.4548V19.525L29.9017 0.0644531H34.9854L21.6967 17.2573L36 32.714H29.9078L19.4101 20.543Z" fill="#4CB8E9"/>
-<path fill-rule="evenodd" clip-rule="evenodd" d="M4.66677 9.98005V4.12458H22.2807L25.5064 0.068251L-3.05176e-05 0.0644531V15.8436L4.66677 9.98005ZM4.67742 15.5116L-3.05176e-05 21.4029V32.7321H4.66677V19.5251H10.0284L13.2477 15.5116H4.67742Z" fill="#4CB8E9"/>
-</g>
-<defs>
-<clipPath id="clip0_2311_25261">
-<rect width="36" height="32.6677" fill="white" transform="translate(0 0.0644531)"/>
-</clipPath>
-</defs>
+<?xml version="1.0"?>
+<svg width="48" height="33" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+ <g class="layer">
+  <title>Layer 1</title>
+  <g id="svg_2">
+   <path d="m25.41,20.65l0,12.17l-4.96,0l0,-13.19l15.45,-19.46l5.09,0l-13.29,17.2l14.3,15.45l-6.09,0l-10.5,-12.17z" fill="#4CB8E9" id="svg_3"/>
+   <path clip-rule="evenodd" d="m10.67,10.09l0,-5.86l17.61,0l3.23,-4.05l-25.51,-0.01l0,15.78l4.67,-5.86zm0.01,5.53l-4.68,5.89l0,11.33l4.67,0l0,-13.2l5.36,0l3.22,-4.02l-8.57,0z" fill="#4CB8E9" fill-rule="evenodd" id="svg_4"/>
+  </g>
+ </g>
 </svg>

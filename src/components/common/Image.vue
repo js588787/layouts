@@ -1,5 +1,5 @@
 <template>
-    <img :src="getImagePath()" alt="img"/>
+    <img :src="getImagePath()"/>
 </template>
   
 <script setup lang="ts">
@@ -10,10 +10,6 @@ const props = defineProps<{
 }>();
 
 const getImagePath = (): string => {
-    return new URL(`../assets/images/${props.fileName}.svg`, import.meta.url).href;
+    return new URL(`../../assets/images/${props.fileName}.svg`, import.meta.url).href;
 };
 </script>
-  
-<style scoped>
-
-</style>

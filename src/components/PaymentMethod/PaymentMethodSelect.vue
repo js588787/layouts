@@ -4,25 +4,29 @@
             <span class="subheader">Выберите способ оплаты</span>
         </div>
 
-        <div class="row-container flex-wrap max-h-[214px] md:gap-[16px] gap-[8px] -mr-[16px] py-[10px] -my-[10px] overflow-y-scroll custom-scroll">
-            <PaymentMethodItem
-                v-for="item in methods"
-                :key="item.code"
-                :item="item"
-                :isSelected="modelValue.code === item.code"
-                @click="onSelectMethod(item)"
-            />
-        </div>
+        <CustomScrollbar class="h-[209px] md:h-[214px] -mx-[15px] -mt-[15px] col-container">
+            <div class="row-container flex-wrap gap-[8px] md:gap-[16px] -mr-[8px] md:-mr-[16px] px-[15px] py-[15px]">
+                <PaymentMethodItem
+                    v-for="item in methods"
+                    :key="item.code"
+                    :item="item"
+                    :isSelected="modelValue?.code === item.code"
+                    @click="onSelectMethod(item)"
+                />
+            </div>
+        </CustomScrollbar>
 
         <div class="col-container gap-[10px]">
             <div class="row-container items-center gap-[10px] cursor-pointer" @click="onToggleDescription">
                 <Image fileName="attension"/>
-                <span class="text-[14px]">Внимание, при нажатии раскрывается информация про страны</span>
-                <Image class="chevron" :class="{ opened: isDescriptionVisible }" fileName="arrow-m"/>
+
+                <span class="text-[12px] leading-[14px] md:text-[14px] md:leading-[16px]">Внимание, при нажатии раскрывается информация про страны</span>
+                
+                <Image class="chevron w-[14px] h-[14px]" :class="{ opened: isDescriptionVisible }" fileName="arrow"/>
             </div>
 
             <div class="row-container" v-if="isDescriptionVisible">
-                <span class="text-[14px] font-normal">{{ method.description }}</span>
+                <span class="text-[12px] leading-[16px] md:text-[14px] md:leading-[20px] font-normal">{{ method?.description }}</span>
             </div>
         </div>
     </div>
@@ -32,7 +36,8 @@
 import { ref } from 'vue';
 import { PaymentMethod } from '../types/PaymentMethod';
 import PaymentMethodItem from './PaymentMethodItem.vue';
-import Image from './Image.vue';
+import Image from '../common/Image.vue';
+import CustomScrollbar from '../common/CustomScrollbar.vue';
 
 const props = defineProps<{
     methods: PaymentMethod[];
@@ -58,5 +63,4 @@ const onToggleDescription = () => {
 </script>
   
 <style scoped>
-
 </style>

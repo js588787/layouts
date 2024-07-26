@@ -1,49 +1,54 @@
 <template>
-    <div class="col-container gap-[24px]">
+    <div class="col-container gap-[12px] md:gap-[24px]">
         <div class="col-container gap-[15px]">
             <div class="row-container items-center gap-[10px]">
                 <span class="subheader">Выберите валюту оплаты</span>
 
-                <InfoIcon tooltipText="Тут выбирается способ которым вы будете оплачивать"/>
+                <InfoIcon
+                    class="invisible md:visible"
+                    type="info"
+                    tooltipText="Тут выбирается способ которым вы будете оплачивать"
+                    :width="247"
+                />
             </div>
 
-            <div class="row-container items-center gap-[16px]">
-                <PaymentValletSelectItem
-                    class="py-[15px] pr-[24px] pl-[20px]"
+            <div class="row-container items-center gap-[8px] md:gap-[16px] flex-wrap">
+                <PaymentCurrencySelectItem
+                    class="min-w-[160px] py-[12px] pr-[18px] pl-[16px] md:py-[15px] md:pr-[24px] md:pl-[20px]"
                     imageName="crypto"
                     text="Криптовалюты"
                     tagText="Рекомендуем"
                     @click="onSelectCrypto()"
                 />
 
-                <PaymentValletSelectItem
+                <PaymentCurrencySelectItem
+                    class="min-w-[275px] px-[2px] py-[4px] md:px-[4px] md:py-[8px]"
+                    :class="{ opened: isExchangeValletsShowed }"
                     imageName="exchange"
                     text="Другие валюты"
+                    hasDropdown
                     @click="onShowExchangeVallets"
                 >
                     <template #before>
-                        <div class="row-container justify-center items-center gap-[12px] h-[52px] w-[107px] mr-[12px] border-r-[1px] border-solid border-black/10">
-                            <Image :fileName="selectedValue.toLowerCase()"/>
+                        <div class="row-container justify-center items-center gap-[12px] h-[40px] w-[91px] md:h-[52px] md:w-[107px] mr-[8px] md:mr-[12px] border-r-[1px] border-solid border-black/10">
+                            <Image
+                                class="h-[24px] w-[24px] md:h-[28px] md:w-[28px]"
+                                :fileName="selectedValue?.toLowerCase()"
+                            />
 
-                            <span class="text-[16px]">{{ selectedValue }}</span>
+                            <span class="text-[14px] md:text-[16px] leading-[16px]">{{ selectedValue }}</span>
                         </div>
                     </template>
-
-                    <template #after>
-                        <div class="row-container items-center mr-[20px]">
-                            <Image class="chevron" :class="{ opened: isOpened }" fileName="arrow-l" />
-                        </div>
-                    </template>
-                </PaymentValletSelectItem>
+                </PaymentCurrencySelectItem>
             </div>
         </div>
 
         <div
             v-show="isExchangeValletsShowed"
             ref="cryptoVallets"
-            class="row-container flex-wrap gap-[16px] -mr-[16px]"
+            class="row-container flex-wrap gap-[8px] md:gap-[16px] -mr-[8px] md:-mr-[16px]"
         >
-            <PaymentValletItem
+            <PaymentCurrencyItem
                 v-for="vallet in vallets"
                 :key="vallet"
                 :isSelected="vallet === modelValue"
@@ -56,10 +61,10 @@
   
 <script setup lang="ts">
 import { computed, ref } from 'vue';
-import PaymentValletSelectItem from './PaymentValletSelectItem.vue';
-import PaymentValletItem from './PaymentValletItem.vue';
-import Image from './Image.vue';
-import InfoIcon from './InfoIcon.vue';
+import PaymentCurrencySelectItem from './PaymentCurrencySelectItem.vue';
+import PaymentCurrencyItem from './PaymentCurrencyItem.vue';
+import Image from '../common/Image.vue';
+import InfoIcon from '../common/InfoIcon.vue';
 
 const props = defineProps<{
     vallets: string[];
@@ -70,8 +75,6 @@ const props = defineProps<{
 const emit = defineEmits<{
     'update:modelValue': [value?: string];
 }>();
-
-const isOpened = computed(() => isExchangeValletsShowed.value);
 
 const isExchangeValletsShowed = ref<boolean>(false);
 
@@ -93,7 +96,3 @@ const onSelectVallet = (value: string) => {
 
 const selectedValue = computed(() => props.modelValue === 'CRYPTO' ? props.defaultValue : props.modelValue);
 </script>
-  
-<style scoped>
-
-</style>

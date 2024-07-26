@@ -14,6 +14,10 @@
   .row-container {
     @apply flex flex-row;
   }
+
+  .subheader {
+    @apply text-[14px] leading-[16px] md:text-[20px] md:leading-[23px];
+  }
   
   .gradientborder {
     background: linear-gradient(white, white) padding-box, linear-gradient(to left, #E2C299, #C5A67C) border-box;
@@ -29,24 +33,11 @@
 }
 
 body {
-    font-family: 'Roboto', sans-serif;
-    color: #212529;
-    font-weight: 500;
-  }
-
-.subheader{
-  @apply text-[20px] leading-[25px];
+  font-family: 'Roboto', sans-serif;
+  color: #212529;
+  font-weight: 500;
 }
 
-.custom-scroll::-webkit-scrollbar {
-  width: 4px;
-}
-
-.custom-scroll::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.custom-scroll::-webkit-scrollbar-thumb {
-  background: #D8D8D8;
-  border-radius: 50px;
+::-webkit-scrollbar {
+  display: none;
 }

@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import PaymentValletSelect from './PaymentValletSelect.vue';
-import PaymentMethodSelect from './PaymentMethodSelect.vue';
-import PaymentSumInput from './PaymentSumInput.vue';
+import PaymentCurrencySelect from './PaymentCurrency/PaymentCurrencySelect.vue';
+import PaymentMethodSelect from './PaymentMethod/PaymentMethodSelect.vue';
+import PaymentSumInput from './PaymentAmount/PaymentSumInput.vue';
 import { computed, ref, watch } from 'vue';
-import { PaymentInfo } from '../types/paymentInfo';
+import { PaymentInfo } from '../types/PaymentInfo';
 import { RESPONSE_MOCK } from '../consts';
-import { PaymentMethod } from '../types/pamentMethod';
+import { PaymentMethod } from '../types/PaymentMethod';
+import Button from './common/Button.vue';
 
 const paymentInfo = ref<PaymentInfo>();
 
@@ -59,13 +60,13 @@ const doPayment = async () => {
 
         window.location.href = result.data.url;
     }
-    catch (e) {
+    catch (e: any) {
         errorMessage.value = e.toString();
     }
 };
 
 watch(() => paymentVallet.value, (value: string) => {
-    paymentMethod.value = paymentInfo.value?.currencies[value]?.[0];
+    paymentMethod.value = paymentInfo.value?.currencies[value]?.[0] as PaymentMethod;
     paymentSum.value = paymentMethod.value?.min_amount;
 }, { immediate: true });
 
@@ -73,42 +74,47 @@ loadPaymentInfo();
 </script>
 
 <template>
-    <div class="wrapper col-container">
-        <p class="text-[36px] leading-[42px]">
-            <b>Пополните баланс, </b>
-            <span class="text-secondary">чтобы получить номер для приема смс</span>
-        </p>
+    <div class="col-container w-full items-center px-[15px]">
+        <div class="col-container w-full max-w-[1160px] gap-[15px] md:gap-[30px] py-[25px] md:pt-[40px] pb-[25px] md:pb-[10px]">
+            <p class="text-[18px] leading-[19.8px] md:text-[36px] md:leading-[42px]">
+                <b>Пополните баланс, </b>
+                <span class="text-[#7a7c7f]">чтобы получить номер для приема смс</span>
+            </p>
 
-        <span v-if="errorMessage" class="text-[14px] text-[#E86068]">{{ errorMessage }}</span>
+            <PaymentCurrencySelect
+                :vallets="paymentVallets || []"
+                v-model="paymentVallet"
+                :defaultValue="paymentInfo?.default_currency"
+            />
 
-        <PaymentValletSelect
-            :vallets="paymentVallets || []"
-            v-model="paymentVallet"
-            :defaultValue="paymentInfo?.default_currency"
-        />
+            <PaymentMethodSelect
+                :methods="paymentMethods || []"
+                :minAmount="paymentMethod?.min_amount"
+                :currency="paymentVallet"
+                v-model="paymentMethod"
+            />
 
-        <PaymentMethodSelect
-            :methods="paymentMethods || []"
-            v-model="paymentMethod"
-        />
+            <PaymentSumInput
+                v-model="paymentSum"
+                :min-value="paymentMethod?.min_amount"
+                :currency="paymentVallet"
+            />
 
-        <PaymentSumInput
-            v-model="paymentSum"
-            :min-value="paymentMethod.min_amount"
-            :currency="paymentVallet"
-        />
+            <Button
+                text="Оплатить"
+                @click="doPayment"
+            />
+                
+            <span
+                v-if="errorMessage"
+                class="text-[14px] text-[#E86068]"
+            >
+                {{ errorMessage }}
+            </span>
 
-        <button
-            class="h-[63px] cursor-hover rounded-[12px] p-[20px] text-[20px] text-white bg-gradient-to-l from-[#E2C299] to-[#C5A67C] hover:to-[#d1b896] hover:from-[#E2C299] ease-out duration-100"
-            @click="doPayment"
-        >
-            Оплатить
-        </button>
+            <div class="row-container">
+                <span class="text-[12px] leading-[16px] md:text-[14px] md:leading-[20px] font-normal block md:hidden">{{ paymentMethod?.description }}</span>
+            </div>
+        </div>
     </div>
 </template>
-
-<style scoped>
-.wrapper {
-    @apply w-full max-w-[1160px] gap-[30px] px-[10px] py-[40px];
-}
-</style>
