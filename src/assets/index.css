@@ -33,9 +33,7 @@
 }
 
 body {
-  font-family: 'Roboto', sans-serif;
-  color: #212529;
-  font-weight: 500;
+  @apply font-['Roboto'] text-[#212529] font-medium ;
 }
 
 ::-webkit-scrollbar {
