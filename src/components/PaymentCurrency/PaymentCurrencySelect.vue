@@ -5,7 +5,7 @@
                 <span class="subheader">Выберите валюту оплаты</span>
 
                 <InfoIcon
-                    class="invisible md:visible"
+                    class="hidden md:block"
                     type="info"
                     tooltipText="Тут выбирается способ которым вы будете оплачивать"
                     :width="247"

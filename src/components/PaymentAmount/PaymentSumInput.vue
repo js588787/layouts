@@ -9,6 +9,8 @@
                     :class="{ error: hasError }"
                     v-model="formattedValue"
                     :placeholder="`Минимальная сумма платежа: ${formatCurrency(minValue)}`"
+                    @focusin="onClearFormat"
+                    @focusout="onChange"
                     @change="onChange"
                 />
 
@@ -74,13 +76,22 @@ const setFormattedValue = (value?: number) => {
     formattedValue.value = formatCurrency(value);
 };
 
+const getNumberValue = (value?: string) => {
+    return Number(value?.replace(/\D/g, '')) || props.minValue;
+};
+
 const onChange = (e: Event) => {
     const target = e.target as HTMLInputElement;
-    const numberValue = Number(target.value.replace(/\D/g, '')) || props.minValue;
+    const numberValue = getNumberValue(target.value);
     setFormattedValue(numberValue);
     hasError.value = numberValue < props.minValue;
 
     emit('update:modelValue', numberValue);
+};
+
+const onClearFormat = (e: Event) => {
+    const target = e.target as HTMLInputElement;
+    formattedValue.value = getNumberValue(target.value).toString();
 };
 
 const sumItems = [ 1000, 2000, 5000, 10000, 20000, 50000 ];

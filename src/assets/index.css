@@ -16,7 +16,7 @@
   }
 
   .subheader {
-    @apply text-[14px] leading-[16px] md:text-[20px] md:leading-[23px];
+    @apply text-[14px] leading-[16px] font-normal md:text-[20px] md:leading-[23px];
   }
   
   .gradientborder {

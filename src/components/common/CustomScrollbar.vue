@@ -50,7 +50,7 @@ onUnmounted(() => {
 }
 
 #content {
-  @apply h-auto overflow-y-scroll;
+  @apply h-auto overflow-x-hidden overflow-y-scroll;
 }
 
 .scrollbar {
