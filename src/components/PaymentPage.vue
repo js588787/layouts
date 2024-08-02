@@ -3,7 +3,7 @@ import PaymentCurrencySelect from './PaymentCurrency/PaymentCurrencySelect.vue';
 import PaymentMethodSelect from './PaymentMethod/PaymentMethodSelect.vue';
 import PaymentSumInput from './PaymentAmount/PaymentSumInput.vue';
 import { computed, ref, watch } from 'vue';
-import { PaymentInfo } from '../types/PaymentInfo';
+import type { PaymentInfo } from '../types/PaymentInfo';
 import { RESPONSE_MOCK } from '../consts';
 import { PaymentMethod } from '../types/PaymentMethod';
 import Button from './common/Button.vue';

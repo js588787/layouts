@@ -1,4 +1,4 @@
-import { PaymentInfo } from './PaymentInfo';
+import type { PaymentInfo } from './PaymentInfo';
 
 export type PaymentInfoResponse = {
     success: boolean,
