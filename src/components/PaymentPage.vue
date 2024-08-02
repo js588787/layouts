@@ -87,12 +87,6 @@ loadPaymentInfo();
                 :defaultValue="paymentInfo?.default_currency"
             />
 
-            <PaymentCurrencySelect
-                :vallets="paymentVallets || []"
-                v-model="paymentVallet"
-                :defaultValue="paymentInfo?.default_currency"
-            />
-
             <PaymentMethodSelect
                 :methods="paymentMethods || []"
                 :minAmount="paymentMethod?.min_amount"
