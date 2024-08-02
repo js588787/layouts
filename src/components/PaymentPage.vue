@@ -87,6 +87,40 @@ loadPaymentInfo();
                 :defaultValue="paymentInfo?.default_currency"
             />
 
+            <PaymentCurrencySelect
+                :vallets="paymentVallets || []"
+                v-model="paymentVallet"
+                :defaultValue="paymentInfo?.default_currency"
+            />
+
+            <PaymentMethodSelect
+                :methods="paymentMethods || []"
+                :minAmount="paymentMethod?.min_amount"
+                :currency="paymentVallet"
+                v-model="paymentMethod"
+            />
+
+            <PaymentSumInput
+                v-model="paymentSum"
+                :min-value="paymentMethod?.min_amount"
+                :currency="paymentVallet"
+            />
+
+            <Button
+                text="Оплатить"
+                @click="doPayment"
+            />
+                
+            <span
+                v-if="errorMessage"
+                class="text-[14px] text-[#E86068]"
+            >
+                {{ errorMessage }}
+            </span>
+
+            <div class="row-container">
+                <span class="text-[12px] leading-[16px] md:text-[14px] md:leading-[20px] font-normal block md:hidden">{{ paymentMethod?.description }}</span>
+            </div>
         </div>
     </div>
 </template>
