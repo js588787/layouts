@@ -20,7 +20,7 @@
   
 <script setup lang="ts">
 import { defineProps } from 'vue';
-import { PaymentMethod } from '../types/PaymentMethod';
+import { PaymentMethod } from '../../types/PaymentMethod';
 import Image from '../common/Image.vue';
 import SelectItemBlock from '../common/SelectItemBlock.vue';
 

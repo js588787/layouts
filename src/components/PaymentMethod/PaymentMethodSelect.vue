@@ -34,7 +34,7 @@
   
 <script setup lang="ts">
 import { ref } from 'vue';
-import { PaymentMethod } from '../types/PaymentMethod';
+import { PaymentMethod } from '../../types/PaymentMethod';
 import PaymentMethodItem from './PaymentMethodItem.vue';
 import Image from '../common/Image.vue';
 import CustomScrollbar from '../common/CustomScrollbar.vue';
