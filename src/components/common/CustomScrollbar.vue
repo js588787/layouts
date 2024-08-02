@@ -12,31 +12,36 @@
   </div>
 </template>
   
-<script setup ts>
+<script setup lang="ts">
 import { ref, onUnmounted, onMounted } from 'vue';
 
-const container = ref(null);
-const content = ref(null);
-const scrollbar = ref(null);
+const container = ref({} as HTMLElement);
+const content = ref({} as HTMLElement);
+const scrollbar = ref({} as HTMLElement);
 const isScrollVisible = ref(false);
 
 const updateScrollbarPosition = () => {
   if (content.value && scrollbar.value) {
-    const scrollPercentage = content.value.scrollTop / (content.value.firstElementChild.clientHeight - container.value.clientHeight);
+    const scrollPercentage = content.value.scrollTop / (content.value.firstElementChild!.clientHeight - container.value.clientHeight);
     scrollbar.value.style.top = `${((container.value.clientHeight - 130) * scrollPercentage)}px`;
   }
 };
 
 const observerOptions = { childList: true, subtree: true };
 
-const observer = new MutationObserver((mutationsList) => {
-  isScrollVisible.value = content.value.firstElementChild.clientHeight > content.value.clientHeight;
+const observer = new MutationObserver(() => {
+  isScrollVisible.value = content.value.firstElementChild!.clientHeight > content.value.clientHeight;
 });
 
 onMounted(() => {
   const targetNode = document.getElementById('content');
-  isScrollVisible.value = content.value.firstElementChild.clientHeight > content.value.clientHeight;
-  observer.observe(targetNode, observerOptions);
+  isScrollVisible.value = content.value.firstElementChild!.clientHeight > content.value.clientHeight;
+
+  if (targetNode !== null) {
+    observer.observe(targetNode, observerOptions);
+  } else {
+    console.error('Target node is null');
+  }
 });
 
 onUnmounted(() => {
